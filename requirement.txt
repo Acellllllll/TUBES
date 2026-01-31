@@ -1,7 +1,7 @@
-streamlit
 requests
 beautifulsoup4
 pandas
 matplotlib
 streamlit-folium
+
 folium

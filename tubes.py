@@ -68,7 +68,7 @@ else:
 
 # --- 2. FITUR PENCARIAN ---
 st.sidebar.header("🔍 Fitur Pencarian")
-search_query = st.sidebar.text_input("Cari Nama Toko atau Jalan:", "")
+search_query = st.sidebar.text_input("Cari Nama Toko atau Jalan atau Kota:", "")
 
 if search_query:
     df_filtered = df_books[

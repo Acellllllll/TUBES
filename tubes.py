@@ -68,7 +68,7 @@ else:
 
 # --- 2. FITUR PENCARIAN ---
 st.sidebar.header("🔍 Fitur Pencarian")
-search_query = st.sidebar.text_input("Cari Nama Toko atau Jalan atau Kota:", "")
+search_query = st.sidebar.text_input("Cari Nama Toko atau Jalan :", "")
 
 if search_query:
     df_filtered = df_books[
@@ -138,3 +138,4 @@ for index, row in df_filtered.iterrows():
 st_folium(m, width=1200, height=600, returned_objects=[])
 
 st.success(f"Berhasil memetakan {len(df_filtered)} titik koordinat gerai Alfamart.")
+

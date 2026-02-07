@@ -67,7 +67,7 @@ else:
     df_books = pd.DataFrame()
 
 # --- 2. FITUR PENCARIAN & FILTER ---
-st.sidebar.header("🔍 Fitur Pencarian")
+st.sidebar.header("🔍 Fitur Pencarian & Filter Data")
 
 # Tambahkan Filter Kota yang spesifik
 list_kota = ["Semua Kota", "Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"]
@@ -151,3 +151,4 @@ for index, row in df_filtered.iterrows():
 st_folium(m, width=1200, height=600, returned_objects=[])
 
 st.success(f"Berhasil memetakan {len(df_filtered)} titik koordinat gerai Alfamart.")
+

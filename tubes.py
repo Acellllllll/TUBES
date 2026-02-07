@@ -66,17 +66,30 @@ if not df_raw.empty:
 else:
     df_books = pd.DataFrame()
 
-# --- 2. FITUR PENCARIAN ---
+# --- 2. FITUR PENCARIAN & FILTER ---
 st.sidebar.header("🔍 Fitur Pencarian")
-search_query = st.sidebar.text_input("Cari Nama Toko atau Jalan :", "")
 
-if search_query:
-    df_filtered = df_books[
-        df_books['Nama Toko'].str.contains(search_query, case=False, na=False) | 
-        df_books['Alamat'].str.contains(search_query, case=False, na=False)
-    ]
-else:
-    df_filtered = df_books
+# Tambahkan Filter Kota yang spesifik
+list_kota = ["Semua Kota", "Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"]
+selected_city = st.sidebar.selectbox("Pilih Kota:", list_kota)
+
+# Pencarian berdasarkan Nama/Alamat tetap ada
+search_query = st.sidebar.text_input("Cari Nama Toko atau Jalan:", "").strip()
+
+# --- PROSES FILTERING ---
+df_filtered = df_books.copy()
+
+# Filter 1: Berdasarkan Kota (Exact Match)
+if selected_city != "Semua Kota":
+    df_filtered = df_filtered[df_filtered['Kota'] == selected_city]
+
+# Filter 2: Berdasarkan Kata Kunci (Jika ada)
+if search_query != "":
+    mask_nama = df_filtered['Nama Toko'].str.contains(search_query, case=False, na=False)
+    mask_alamat = df_filtered['Alamat'].str.contains(search_query, case=False, na=False)
+    df_filtered = df_filtered[mask_nama | mask_alamat]
+
+
 
 # --- 3. MENAMPILKAN BANYAK DATA HASIL SCRAPING ---
 st.subheader(f"📊 Data Hasil Scraping (Ditemukan: {len(df_filtered)} Gerai)")
@@ -138,4 +151,3 @@ for index, row in df_filtered.iterrows():
 st_folium(m, width=1200, height=600, returned_objects=[])
 
 st.success(f"Berhasil memetakan {len(df_filtered)} titik koordinat gerai Alfamart.")
-
